@@ -27,7 +27,7 @@ jobs:
             binary_name: bini-rust-server
 
           - os: macos-latest
-            target: arch64-apple-darwin
+            target: aarch64-apple-darwin
             artifact: bini-rust-server-macos-arm64
             binary_name: bini-rust-server
 
