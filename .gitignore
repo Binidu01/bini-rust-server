@@ -1,0 +1,16 @@
+# Rust
+/target/
+Cargo.lock
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
