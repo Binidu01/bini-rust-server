@@ -16,21 +16,25 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Windows x64
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             artifact: bini-rust-server-windows-x64.exe
             binary_name: bini-rust-server.exe
 
+          # macOS Intel (x86_64)
           - os: macos-15-intel
             target: x86_64-apple-darwin
             artifact: bini-rust-server-macos-x64
             binary_name: bini-rust-server
 
+          # macOS Apple Silicon (ARM64)
           - os: macos-latest
             target: aarch64-apple-darwin
             artifact: bini-rust-server-macos-arm64
             binary_name: bini-rust-server
 
+          # Linux x64
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             artifact: bini-rust-server-linux-x64
