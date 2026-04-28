@@ -37,17 +37,18 @@ jobs:
             binary_name: bini-rust-server
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
 
-      - name: Build
+      - name: Build release binary
         run: cargo build --release --target ${{ matrix.target }}
 
-      - name: Upload binary
+      - name: Upload binary as artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact }}
@@ -63,13 +64,21 @@ jobs:
       - name: Download all binaries
         uses: actions/download-artifact@v4
         with:
-          path: binaries
+          path: artifacts
 
-      - name: List binaries
-        run: ls -la binaries/*
+      - name: Display downloaded file structure
+        run: ls -R artifacts
+
+      - name: Organize binaries for upload
+        run: |
+          mkdir -p release_files
+          find artifacts -type f -name 'bini-rust-server*' -exec cp {} release_files/ \;
+          echo "Files to be uploaded:"
+          ls -la release_files/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: binaries/**/*
+          files: release_files/*
           generate_release_notes: true
+          fail_on_unmatched_files: false
